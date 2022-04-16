@@ -40,15 +40,16 @@ data = data.append(dataFrameFromDirectory('./emails/ham', 'ham'))
 
 data.head()
 
-#setting up trained filter
+
 vectorizer = CountVectorizer()
+#converting each individual word into values and count the number of times it occurs
 counts = vectorizer.fit_transform(data['message'].values)
 
 classifier = MultinomialNB()
 targets = data['class'].values
 print(classifier.fit(counts, targets))
 
-#testing our spum filter
+#testing our spam filter
 examples = ['Free Viagra now!!!', "Hi Bob, how about a game of golf tomorrow?"]
 example_counts = vectorizer.transform(examples)
 predictions = classifier.predict(example_counts)
